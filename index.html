@@ -165,85 +165,18 @@ $(function(){
 
 <div class="iconWrap">
 
-	<span class="photoButton btn_rotate">90도 회전</span>
-	<span class="photoButton btn_rotateSymmentry">좌우대칭</span>
+	<span class="photoButton btn_rotate">rotate(90)</span>
+	<span class="photoButton btn_rotateSymmentry">rotate_symmetry</span>
 	
-	<span class="photoButton btn_upScale">scaleUp(0.2)</span>
-	<span class="photoButton btn_downScale">scaleDown(-0.2)</span>
+	<span class="photoButton btn_upScale">scale_up(0.2)</span>
+	<span class="photoButton btn_downScale">scale_down(-0.2)</span>
 
-	<span class="photoButton btn_addCircle">원형 만들기</span>
-	<span class="photoButton btn_addRect">사각형 만들기</span>	
-	<span class="photoButton btn_addTriangle">삼각형 만들기</span>
-
-
-	<span class="photoButton btn_img_croparea">cropArea</span>
+	<span class="photoButton btn_addCircle">canvas_circle</span>
+	<span class="photoButton btn_addRect">canvas_rect</span>	
+	<span class="photoButton btn_addTriangle">canvas_triangle</span>
 
 
-
-
-
-	<span class="photoButton btn_changeGrayscale"><input type="image" src="./images/btn/img_btnPhoto03_off.png" class="rollover" alt="왼쪽으로 90도 회전" title="왼쪽으로 90도 회전" /></span>
-	<span class="pbtnBar photoButton"></span> 
-	
-	
-
-	<span class="photoButton"><input type="image" src="./images/btn/img_btnPhoto04_off.png" id="crop_btn" class="rollover crop_btn" alt="오려내기" title="오려내기" /></span>
- 	
-	
-	<span class="pbtnBar photoButton"></span>
-	
-	<span class="photoButton"><input type="image" src="./images/btn/img_btnPhoto07_off.png" class="rollover" alt="흑백으로 바꾸기" title="흑백으로 바꾸기" onclick='blackWhite()' /><input type="hidden" id="grayscale" value="color" /></span>	
-	<span class="photoButton"><input type="image" src="./images/btn/img_btnPhoto06_off.png" class="rollover" alt="선명하게" title="선명하게" onclick='sharpen()' /><input type="hidden" id="sharpen" value="original"></span>
-	
-	<span class="pbtnBar photoButton"></span>
-	
-	<span class="photoButton"><input type="image" src="./images/btn/img_btnPhoto10_off.png" class="rollover" alt="밝게" title="밝게" onclick="upBrightness()" /></span>
-	<span class="photoButton"><input type="image" src="./images/btn/img_btnPhoto11_off.png" class="rollover" alt="어둡게" title="어둡게" onclick="downBrightness()"/></span>
-	
-
-	<span class="pbtnBar photoButton"></span>
-	
-	<span class="photoButton"><input type="image" src="./images/btn/img_btnPhoto09_off.png" class="rollover" alt="축소" title="축소" onclick="zoom_out();" /></span>
-	<span class="photoButton"><input type="image" src="./images/btn/img_btnPhoto08_off.png" class="rollover" alt="확대" title="확대" onclick="zoom_in();" /></span>
-	<span class="photoButton">
-		<select name="search-combo1" id="search-combo1" style="width:55px;">
-	    	<option value="0.2">20%</option>
-	        <option value="0.4">40%</option>
-	        <option value="0.6">60%</option>
-	        <option value="0.8">80%</option>
-	        <option value="1" selected="selected">100%</option>
-	        <option value="1.2">120%</option>
-	        <option value="1.4">140%</option>
-	        <option value="1.6">160%</option>
-	        <option value="1.8">180%</option>
-	        <option value="2">200%</option>
-		 </select>	                       	 
-	  </span>
-	  
-	  <span class="pbtnBar photoButton"></span>
-	  <span class="photoButton"><input type="image" src="./images/btn/img_btnPhoto12_off.png" class="rollover undo_btn" alt="실행취소" title="실행취소" onclick="undo_work()"/></span>
-	  <!-- 동작하지 않을 시,
-	  <span class="photoButton"><img src="./images/btn/img_btnPhoto12_none.png" alt="실행취소" title="실행취소" /></span>-->
-	  <span class="pbtnBar photoButton"></span>
-      <span class="photoButton"><input type="image" src="./images/btn/img_btnPhoto13_off.png" class="rollover" alt="글자" title="글자" onclick="addText()"/></span>
-      <span class="photoButton"><input type="image" src="./images/btn/img_btnPhoto14_off.png" class="rollover" alt="삭제" title="삭제" onclick="removeObject()"/></span>
-      <span class="pbtnBar photoButton"></span>
-      <div class="diagram">
-      	<span class="photoButton"><input type="image" src="./images/btn/img_btnPhoto15_01_off.png" class="rollover" alt="도형" title="도형" onClick="toggleMenu()" /></span>
-        <ul class="diagramul" id="diagram" style="display:none">
-	      	<li onclick="addRect()" class="btnDiagram"><img src="./images/btn/img_btnPhoto15_1.png" title="사각형" class="dia"></li>
-		    <li onclick="addCircle()" class="btnDiagram"><img src="./images/btn/img_btnPhoto15_2.png" title="원형" class="dia"></li>
-		    <li onclick="addTriangle()" class="btnDiagram"><img src="./images/btn/img_btnPhoto15_3.png" title="삼각형" class="dia"></li>
-
-	    <li onclick="startFreeDrawing()" id="btnDrawingMode" class="btnDiagram"><img src="./images/btn/img_btnPhoto15_5.png" title="자유형" class="dia"></li> 
-	    </ul>
-      </div>
-	  <span class="pbtnBar photoButton">&nbsp;</span>
-
-	  <span class="button btnTypeC" onclick="regen_work()"><a href="#">초기화</a></span>
-	  <span class="button btnTypeC" id="btnViewOrigin" onclick="viewOriginal()"><a href="#">원화상보기</a></span>
-	  
-	  <span class="button btnTypeD fr mt2"><a href="#">저장</a></span>
+	<span class="photoButton btn_img_croparea">crop_Area</span>
 
 </div>
 
