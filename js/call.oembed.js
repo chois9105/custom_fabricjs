@@ -47,7 +47,7 @@ var contentResource = (function(){
 				
 			},
 			searchVimeo : function(successCallback, errorCallback){
-							
+				
 				$.ajax({
 					url: 'http://vimeo.com/api/oembed.json?url=' + encodeURI(parameters.url),	                	           
 		            success: success,

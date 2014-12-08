@@ -69,27 +69,41 @@ var CustomFabric = (function(){
 					contentType = "flickr";
 				} else if(contentURL.indexOf("insta") != -1){				
 					contentType = "instagram";
+				} else{
+					contentType = "local";
 				}
 
-				var _customFabric = this;
+				if(contentType == "local"){
+					fabric.Image.fromURL(contentURL,function(img){
+						_canvas.add(img)
+					})
 
-				contentResource()
-				.withType(contentType)
-				.withURL(contentURL)
-				.searchContent(function(data){
 
-					if(success != null){
-						data = _customFabric._parseContent(data,contentType);						
-						success(data);	
-					}
-					
+				}else{
 
-				}),function(err){
-					if(error != null){
-						error(err);
-					}
-					
-				};
+
+					var _customFabric = this;
+
+					contentResource()
+					.withType(contentType)
+					.withURL(contentURL)
+					.searchContent(function(data){
+
+						if(success != null){
+							data = _customFabric._parseContent(data,contentType);						
+							success(data);	
+						}
+						
+
+					}),function(err){
+						if(error != null){
+							error(err);
+						}
+						
+					};
+
+				}
+				
 
 			},
 			getImageObject : function(){
@@ -189,6 +203,9 @@ var CustomFabric = (function(){
 			},
 			addRect : function(opt){
 				_canvas.add(new fabric.Rect(opt));				
+			},
+			addOutlineRext : function(){
+				_canvas.add(new fabric.Rect(opt));
 			},
 			addCircle : function(opt){
 				_canvas.add(new fabric.Circle(opt));
@@ -320,7 +337,29 @@ var CustomFabric = (function(){
 
 
 
+			},			
+			changeBrightness : function(value){
+
+				if(value == null){
+					return;
+				}
+
+				var imgObj = this.getImageObject();
+
+				if (!imgObj.filters[5]) {
+					var filter = new fabric.Image.filters.Brightness({brightness: value});
+					imgObj.filters[5] = filter;
+				}
+				else {
+					var brightnessValue = imgObj.filters[5].brightness;
+					brightnessValue += value;
+					imgObj.filters[5].brightness = brightnessValue;	
+				};
+
+			    imgObj.applyFilters(_canvas.renderAll.bind(_canvas));
+
 			}
+
 
 		
 			

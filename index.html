@@ -41,19 +41,29 @@ $(function(){
 		.withURL(imageURL)
 		.loadImage(function(data){
 
-			fabric.Image.fromURL(data.thumbnail_url, function(oImg) {
+			var thumbnail_url = data.thumbnail_url;
+			thumbnail_url = thumbnail_url.replace("http://","");
+/*
+			$.get('http://www.corsproxy.com/' + thumbnail_url, function(response) {
 
-				oImg.set({
-					width: Math.round(editorWidth / 2),
-					height: Math.round(editorHeight / 2),				
+				fabric.Image.fromObject(response, function(oImg) {
+
+					oImg.set({
+						width: Math.round(editorWidth / 2),
+						height: Math.round(editorHeight / 2),				
+					});
+
+					canvas.clear();
+					canvas.add(oImg);	
+					canvas.renderAll();
+					oImg.center();				
+					oImg.setCoords();
 				});
 
-				canvas.clear();
-				canvas.add(oImg);	
-				canvas.renderAll();
-				oImg.center();				
-				oImg.setCoords();
+				
 			});
+*/
+			
 
 		});
 
@@ -127,12 +137,28 @@ $(function(){
 	});
 
 
+	// imgObject must exist
 	$(".btn_img_croparea").click(function(){
-
-		// imgObject must exist
 		customFabric.showImgCropArea();
-
 	});
+
+
+	// imgObject must exist
+	$(".btn_up_brightness").click(function(){
+		customFabric.changeBrightness(10);
+	});
+
+	// imgObject must exist
+	$(".btn_up_brightness").click(function(){
+		customFabric.changeBrightness(10);
+	});
+
+	// imgObject must exist
+	$(".btn_down_brightness").click(function(){
+		customFabric.changeBrightness(-10);
+	});
+
+
 
 	$(".btn_loadimage").click();
 
@@ -174,14 +200,21 @@ $(function(){
 	<span class="photoButton btn_addCircle">canvas_circle</span>
 	<span class="photoButton btn_addRect">canvas_rect</span>	
 	<span class="photoButton btn_addTriangle">canvas_triangle</span>
-
+ 
 
 	<span class="photoButton btn_img_croparea">crop_Area</span>
+
+
+	<span class="photoButton btn_change_grayscale">change_grayscale</span>
+	<span class="photoButton btn_up_brightness">up_brightness</span>
+	<span class="photoButton btn_down_brightness">down_brightness</span>
+
+	
 
 </div>
 
 <div class="load_images">
-	<input value="http://www.youtube.com/watch?v=4Pax5vCQbMA" class="imageURL" />
+	<input value="./images/Tulips.jpg" class="imageURL" />
 	<button class="btn_loadimage">불러오기</button>
 
 </div>
