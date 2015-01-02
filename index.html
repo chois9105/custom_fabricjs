@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 
 <link rel="stylesheet" type="text/css" href="./css/reset.css" />
+<link rel="stylesheet" type="text/css" href="./css/customFabric.css" />
 
 <script src="./js/jquery-1.10.2.js"></script>
 <script src="./js/fabric.js"></script>
@@ -28,9 +29,10 @@ $(function(){
 	canvas.renderAll();
 
 
-	customFabric.setCanvas(canvas);
+	customFabric.setCanvas(canvas);	
+	customFabric.setTextPannel('#textPannel');
+	customFabric.setFigurePannel('#figurePannel');
 	customFabric.resizeCanvas('#editorWrapper');
-
 	
 // end initCanvas 
 
@@ -159,7 +161,6 @@ $(function(){
 	});
 
 
-
 	$(".btn_loadimage").click();
 
 
@@ -171,57 +172,53 @@ $(function(){
 
 </script>
 
-<style>
-	.editor_wrapper {
-		width : 80%;
-		height: 512px;		
-		border: 1px solid black
-	}
-	.photoButton {
-		display: inline-block;		
-		height: 20px;
-		border: 1px solid red;
-	}
-
-</style>
-
 </head>
 <body>
 
+<div class="editorContainer">
+	<div class="iconWrap">
 
-<div class="iconWrap">
+		<span class="photoButton btn_rotate">rotate(90)</span>
+		<span class="photoButton btn_rotateSymmentry">rotate_symmetry</span>
+		
+		<span class="photoButton btn_upScale">scale_up(0.2)</span>
+		<span class="photoButton btn_downScale">scale_down(-0.2)</span>
 
-	<span class="photoButton btn_rotate">rotate(90)</span>
-	<span class="photoButton btn_rotateSymmentry">rotate_symmetry</span>
-	
-	<span class="photoButton btn_upScale">scale_up(0.2)</span>
-	<span class="photoButton btn_downScale">scale_down(-0.2)</span>
+		<span class="photoButton btn_addCircle">canvas_circle</span>
+		<span class="photoButton btn_addRect">canvas_rect</span>	
+		<span class="photoButton btn_addTriangle">canvas_triangle</span>
+		<span class="photoButton btn_addText">canvas_text</span>
+	 
 
-	<span class="photoButton btn_addCircle">canvas_circle</span>
-	<span class="photoButton btn_addRect">canvas_rect</span>	
-	<span class="photoButton btn_addTriangle">canvas_triangle</span>
- 
-
-	<span class="photoButton btn_img_croparea">crop_Area</span>
-
-
-	<span class="photoButton btn_change_grayscale">change_grayscale</span>
-	<span class="photoButton btn_up_brightness">up_brightness</span>
-	<span class="photoButton btn_down_brightness">down_brightness</span>
-
-	
-
-</div>
-
-<div class="load_images">
-	<input value="./images/Tulips.jpg" class="imageURL" />
-	<button class="btn_loadimage">불러오기</button>
-
-</div>
+		<span class="photoButton btn_img_croparea">crop_Area</span>
 
 
-<div id="editorWrapper" class="editor_wrapper">
-	<canvas id="c" style="position:absolute;margin: 0 0 0 0; padding:0; height:auto"></canvas> 
+		<span class="photoButton btn_change_grayscale">change_grayscale</span>
+		<span class="photoButton btn_up_brightness">up_brightness</span>
+		<span class="photoButton btn_down_brightness">down_brightness</span>
+
+	</div>
+
+	<div class="textPannel" id="textPannel">
+		<textarea class='textBody'></textarea>
+	</div>
+
+	<div class="figurePannel" id="figurePannel">
+		
+	</div>
+
+
+	<div class="load_images">
+		<input value="./images/Tulips.jpg" class="imageURL" />
+		<button class="btn_loadimage">불러오기</button>
+
+	</div>
+
+
+	<div id="editorWrapper" class="editor_wrapper">
+		<canvas id="c" style="position:absolute;margin: 0 0 0 0; padding:0; height:auto"></canvas> 
+	</div>
+
 </div>
 
 </body>

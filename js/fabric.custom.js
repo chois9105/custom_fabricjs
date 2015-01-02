@@ -3,6 +3,8 @@ var CustomFabric = (function(){
 		var _info = new Object();
 		var _canvas;
 		var _cropstate = {};
+		var _textPannel = '';
+		var _figurePannel = '';
 		_cropstate.area = false;
 
 		return {
@@ -15,6 +17,18 @@ var CustomFabric = (function(){
 			},
 			getCanvas : function(){
 				return _canvas;
+			},
+			setTextPannel : function(pannel){
+				_textPannel = pannel
+			},
+			getTextPannel : function(){
+				return _textPannel;
+			},
+			setFigurePannel : function(pannel){
+				_figurePannel = pannel
+			},
+			getFigurePannel : function(){
+				return _figurePannel;
 			},
 			resizeCanvas : function(selector){
 				
@@ -75,12 +89,15 @@ var CustomFabric = (function(){
 
 				if(contentType == "local"){
 					fabric.Image.fromURL(contentURL,function(img){
+						img.set({
+							crossOrigin : 'anonymous'
+						})
+		
 						_canvas.add(img)
 					})
 
 
 				}else{
-
 
 					var _customFabric = this;
 
@@ -263,6 +280,9 @@ var CustomFabric = (function(){
 			actionCropArea : function(option){
 
 				var imgObj = this.getImageObject();
+				imgObj.set({
+					'crossOrigin' : 'anonymous'
+				})
 				var cropArea = _cropstate.rect;
 
 				if(cropArea.intersectsWithObject(imgObj) || cropArea.isContainedWithinObject(imgObj) ){
@@ -294,29 +314,21 @@ var CustomFabric = (function(){
 							_canvas.remove(canvasObj);
 					});
 
-					var newImage = new Image();
 
+					var newImage = new Image();
+					var src = imgObj.getSrc();
+					newImage.setAttribute('crossOrigin', 'anonymous');
+	
 					newImage.src = _canvas.toDataURL({
 				        left: newLeft,
 				        top: newTop,
-				        width: parseInt(newWidth),
-				        height: parseInt(newHeight),
+				        width: newWidth,
+				        height: newHeight
 				    });
-
 
 					newImage.onload = function(){
 
 						var imgInstance = new fabric.Image(this);
-
-						var imgWidth = parseInt( imgInstance.getWidth() / scale );
-				 	    var imgHeight = parseInt( imgInstance.getHeight() / scale );
-				 	    
-				 	    imgInstance.set({
-				 	    	width : imgWidth,
-				 	    	height : imgHeight,
-				 	    	scaleX : 1,
-				 	    	scaleY : 1
-				 	    });
 
 				 	    canvas.remvoe(imgObj);
 				 	    canvas.add(imgInstance);
@@ -358,7 +370,27 @@ var CustomFabric = (function(){
 
 			    imgObj.applyFilters(_canvas.renderAll.bind(_canvas));
 
-			}
+			},
+			mouseDown : function(obj){
+				switch(obj.isType()){
+					case 'rect':
+					case 'circle':
+					case 'triangle':
+					case 'text':
+					case 'image':
+				}
+
+			},
+			mouseUp : function(obj){
+				switch(obj.isType()){
+					case 'rect':
+					case 'circle':
+					case 'triangle':
+					case 'text':
+					case 'image':
+				}
+
+			},
 
 
 		
