@@ -305,10 +305,9 @@ var CustomFabric = (function(){
 
 					newLeft = (cropAreaLeft < imgLeft ? imgLeft : cropAreaLeft);
 					newTop = (cropAreaTop < imgTop ? imgTop : cropAreaTop);
-					newWidth = (cropAreaLeft+cropAreaWidth > imgLeft+imgWidth ? imgLeft+imgWidth - newWidth : cropAreaLeft+cropAreaWidth - newWidth);
-					newHeight = (cropAreaTop+cropAreaHeight > imgTop+imgHeight ? imgTop+imgHeight - newHeight : cropAreaTop+cropAreaHeight - newHeight);
-		
-
+					newWidth = (cropAreaLeft+cropAreaWidth > imgLeft+imgWidth ? imgLeft+imgWidth - newLeft : cropAreaLeft+cropAreaWidth - newLeft);
+					newHeight = (cropAreaTop+cropAreaHeight > imgTop+imgHeight ? imgTop+imgHeight - newTop  : cropAreaTop+cropAreaHeight - newTop);
+	
 					_canvas.forEachObject(function(canvasObj){
 						if(!canvasObj.isType("image"))
 							_canvas.remove(canvasObj);
@@ -319,6 +318,10 @@ var CustomFabric = (function(){
 					var src = imgObj.getSrc();
 					newImage.setAttribute('crossOrigin', 'anonymous');
 	
+
+					console.log(newWidth);
+					console.log(newHeight);
+
 					newImage.src = _canvas.toDataURL({
 				        left: newLeft,
 				        top: newTop,
@@ -330,10 +333,12 @@ var CustomFabric = (function(){
 
 						var imgInstance = new fabric.Image(this);
 
-				 	    canvas.remvoe(imgObj);
-				 	    canvas.add(imgInstance);
 
-				 	    canvas.renderAll();
+						console.log(imgInstance);
+				 	    _canvas.remove(imgObj);
+				 	    _canvas.add(imgInstance);
+
+				 	    _canvas.renderAll();
 
 				 	    _cropstate.area = false;
 
