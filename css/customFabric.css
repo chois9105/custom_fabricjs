@@ -13,3 +13,10 @@
 	border: 1px solid red;
 	color: white;
 }
+
+.pannel {
+	display:none;
+	position:absolute;
+	width: 250px;
+	z-index: 100;
+}

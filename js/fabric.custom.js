@@ -230,6 +230,9 @@ var CustomFabric = (function(){
 			addTriangle : function(opt){
 				_canvas.add(new fabric.Triangle(opt));
 			},
+			addText : function(opt){
+				_canvas.add(new fabric.Text(opt));
+			},
 			showImgCropArea : function(){
 
 				if(!(_cropstate.area)){
@@ -319,9 +322,6 @@ var CustomFabric = (function(){
 					newImage.setAttribute('crossOrigin', 'anonymous');
 	
 
-					console.log(newWidth);
-					console.log(newHeight);
-
 					newImage.src = _canvas.toDataURL({
 				        left: newLeft,
 				        top: newTop,
@@ -333,13 +333,9 @@ var CustomFabric = (function(){
 
 						var imgInstance = new fabric.Image(this);
 
-
-						console.log(imgInstance);
 				 	    _canvas.remove(imgObj);
 				 	    _canvas.add(imgInstance);
-
 				 	    _canvas.renderAll();
-
 				 	    _cropstate.area = false;
 
 					}
@@ -376,30 +372,20 @@ var CustomFabric = (function(){
 			    imgObj.applyFilters(_canvas.renderAll.bind(_canvas));
 
 			},
-			mouseDown : function(obj){
-				switch(obj.isType()){
-					case 'rect':
-					case 'circle':
-					case 'triangle':
-					case 'text':
-					case 'image':
-				}
+			changeGrayscale : function(){
+				var imgObj = this.getImageObject();
+				var grayscale = imgObj.filters[0];
+				var filter = (  (grayscale != undefined && grayscale != false) ? false : new fabric.Image.filters.Grayscale());
+				
+				imgObj.filters[0] = filter;
+				imgObj.applyFilters(_canvas.renderAll.bind(_canvas));
+
 
 			},
-			mouseUp : function(obj){
-				switch(obj.isType()){
-					case 'rect':
-					case 'circle':
-					case 'triangle':
-					case 'text':
-					case 'image':
-				}
+			on : function(evt, func){
+				_canvas.on(evt, func);
+			}
 
-			},
-
-
-		
-			
 		}
 
 	});
