@@ -69,6 +69,7 @@ $(function(){
 	customFabric.on("object:selected",function(){
 		activeObject = customFabric.getActiveObject();
 	});
+
 	
 // end initCanvas 
 
@@ -200,20 +201,24 @@ $(function(){
 	$(".btn_loadimage").click();
 
 	$textPannel.find("textarea").keyup(syncContents);
-	$textPannel.find(".align").change(setTextAlign)
+	$textPannel.find(".align").change(setTextAlign);
+	$textPannel.find(".opacity").change(setOpacity);
 
 	function syncContents(e){
-
-		var text = $(this).val();
+		var text = e.target.value;
 		activeObject.setText(text);
 		customFabric.renderAll();
 	}
 	
 	function setTextAlign(e){
 		var align = e.target.value;
-		console.log(align);
 		activeObject.setTextAlign(align);
-		canvas.renderAll();
+	}
+
+	function setOpacity(e){
+		var opacity = e.target.value;
+		activeObject.setOpacity(opacity);
+		customFabric.renderAll();
 	}
 
 	function initTextProperty(evt){
@@ -306,7 +311,7 @@ $(function(){
 			</li>
 			<li>
 				<p>투명도</p>
-				<select class="w60">
+				<select class="opacity">
 		            <option value="0">0</option>
 		            <option value="0.1">10%</option>
 		            <option value="0.2">20%</option>

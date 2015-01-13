@@ -388,7 +388,6 @@ var CustomFabric = (function(){
 
 
 			},
-
 			on : function(evt, func){
 				_canvas.on(evt, func);
 			}
