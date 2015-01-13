@@ -47,6 +47,9 @@ var CustomFabric = (function(){
 				})
 
 			},
+			getActiveObject : function(){
+				return this._getActiveObject();
+			},
 			_getActiveObject : function(obj){
 
 				if( obj == null){
@@ -60,6 +63,9 @@ var CustomFabric = (function(){
 
 				return obj;
 
+			},
+			renderAll : function(){
+				return _canvas.renderAll();
 			},
 			// youtube using Yahoo YQL
 			_parseContent : function(data, contentType) {
@@ -382,6 +388,7 @@ var CustomFabric = (function(){
 
 
 			},
+
 			on : function(evt, func){
 				_canvas.on(evt, func);
 			}

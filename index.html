@@ -36,7 +36,8 @@ $(function(){
 	
 	var $textPannel = $(customFabric.getTextPannel());
 	var $figurePannel = $(customFabric.getFigurePannel());
-	
+	var activeObject = null;
+
 	customFabric.on("mouse:down",function(){
 		$textPannel.hide();
 		$figurePannel.hide();
@@ -63,6 +64,10 @@ $(function(){
 				break;
 		}
 
+	});
+
+	customFabric.on("object:selected",function(){
+		activeObject = customFabric.getActiveObject();
 	});
 	
 // end initCanvas 
@@ -194,12 +199,26 @@ $(function(){
 
 	$(".btn_loadimage").click();
 
+	$textPannel.find("textarea").keyup(syncContents);
+	$textPannel.find(".align").change(setTextAlign)
 
+	function syncContents(e){
+
+		var text = $(this).val();
+		activeObject.setText(text);
+		customFabric.renderAll();
+	}
+	
+	function setTextAlign(e){
+		var align = e.target.value;
+		console.log(align);
+		activeObject.setTextAlign(align);
+		canvas.renderAll();
+	}
 
 	function initTextProperty(evt){
 
-		var activeObject = evt.target;
-
+		
 		var pannelLeft = evt.e.layerX + 150;
 		var pannelTop = evt.e.layerY;
 
@@ -218,61 +237,11 @@ $(function(){
 			left: pannelLeft
 		});
 
+		$textPannel.find("textarea").val(contents);
+
 		$textPannel.show();
 
-
-
-/*		
-		var propertyLeft = event.e.layerX + 150;
-		var propertyTop = event.e.layerY;
-		
-		$(".btnOption").removeClass("bg_eee");
-		
-		var activeObject = canvas.getActiveObject();
-			
-		var fontWeight = activeObject.getFontWeight();
-		var fontStyle = activeObject.getFontStyle();
-		var textDecoration =  activeObject.getTextDecoration();
-		var contents = activeObject.getText();
-		var fontColor = activeObject.getFill();
-		var backgroundColor = activeObject.getBackgroundColor();
-		var lineHeight = activeObject.getLineHeight();
-		var opacity = activeObject.getOpacity();
-		var fontSize = activeObject.getFontSize();
-			
-		$("#inputText").val(contents);
-		
-		if(fontWeight == 'bold'){
-			$("#btnBold").addClass("bg_eee");
-		}
-		
-		if(fontStyle == 'italic'){
-			$("#btnItalic").addClass("bg_eee");
-		}
-			
-		if(textDecoration == "undeline"){
-			$("#btnUnderline").addClass("bg_eee");
-		}else if(textDecoration == 'line-through'){
-			$("#btnMidline").addClass("bg_eee");
-		}else if(textDecoration == "overline"){
-			$("#btnOverline").addClass("bg_eee");
-		}
-		
-		$("#btnTextColor").css("background-color",fontColor);
-		$("#btnTextBackgroundColor").css("background-color",backgroundColor);
-		$("#textLineHeight").val(lineHeight);
-		$(".selectedOpacity").val(opacity);
-		$("#textSize").val(fontSize);
-		
-		
-		$("#text_property").css({
-			top: propertyTop,
-			left: propertyLeft
-		}).show();
-*/		
 	}
-
-
 
 })
 
@@ -322,9 +291,9 @@ $(function(){
 			</li>
 			<li>
 				<p>정렬</p>
-				<select>
+				<select class="align">
              		<option value="left">왼쪽</option>
-             		<option value="middle">가운데</option>
+             		<option value="center">가운데</option>
              		<option value="right">오른쪽</option>
             	</select>
 			</li>
