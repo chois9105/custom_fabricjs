@@ -231,6 +231,7 @@ $(function(){
 		var lineHeight = activeObject.getLineHeight();
 		var opacity = activeObject.getOpacity();
 		var fontSize = activeObject.getFontSize();
+		var textAlign = activeObject.getTextAlign();
 
 		$textPannel.css({
 			top: pannelTop,
@@ -238,7 +239,7 @@ $(function(){
 		});
 
 		$textPannel.find("textarea").val(contents);
-
+		$textPannel.find('.align').val(textAlign);
 		$textPannel.show();
 
 	}
