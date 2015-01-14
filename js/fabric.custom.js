@@ -37,12 +37,13 @@ var CustomFabric = (function(){
 					var wrapper = $(selector);
 					
 					var width = wrapper.width();
-					var height = wrapper.height();
+					var height = wrapper.height() - 40;
 
+				
 					_canvas.setWidth(width);
 					_canvas.setHeight(height);
 
-					canvas.renderAll();
+					_canvas.renderAll();
 
 				})
 
@@ -190,7 +191,7 @@ var CustomFabric = (function(){
  				objScale = (Math.round(objScale * 10) / 10 );
 
 
- 				if(objScale <= 0.2 || objScale >= 10){
+ 				if(objScale <= 0.2 || objScale >= 2){
  					return;
  				};
 

@@ -1,23 +1,23 @@
-.editorContainer {
-	background: #2F2F33;
+html, body {
+	height: 100%;
 }
 
-.editor_wrapper {
-		width : 95%;
-		height: 1024px;		
-		border: 1px solid black
-}
-.photoButton {
-	display: inline-block;		
-	height: 20px;
-	border: 1px solid red;
-	color: white;
+#wrapper, #page-wrapper {
+	height: 100%;
 }
 
-.pannel {
-	display:none;
-	position:absolute;
-	width: 250px;
-	z-index: 100;
-	background: white
+.editorArea {
+	height: 70%;
+}
+
+.editorArea>div, .editorArea>div>.panel , .editorArea>div>.panel>.panel-body {
+	height:100%;
+}
+
+.editorArea>div>.panel>.panel-body {
+	padding:0;
+}
+
+.editorButtons button {
+	margin-bottom: 1px;
 }

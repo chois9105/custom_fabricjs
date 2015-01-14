@@ -5,12 +5,15 @@
 
 <link rel="stylesheet" type="text/css" href="./css/reset.css" />
 <link rel="stylesheet" type="text/css" href="./css/customFabric.css" />
+<link rel="stylesheet" type="text/css" href="./bootstrap/css/bootstrap.min.css" />
+<link rel="stylesheet" type="text/css" href="./bootstrap/css/darkTheme.css" />
 
 <script src="./js/jquery-1.10.2.js"></script>
 <script src="./js/fabric.js"></script>
 <script src="./js/fabric.canvasex.js "></script>
 <script src="./js/fabric.custom.js"></script>
 <script src="./js/call.oembed.js"></script>
+<script src="./bootstrap/js/bootstrap.min.js"></script>
 
 <title>image editor</title>
 
@@ -21,8 +24,8 @@ $(function(){
 // start init canvas(width, height) 
 	var canvas = new fabric.CanvasEx('c');
 	var customFabric = new CustomFabric();
-	var editorWidth = $(".editor_wrapper").width();
-	var editorHeight = $(".editor_wrapper").height();
+	var editorWidth = $(".editorArea .panel-body").width();
+	var editorHeight = $(".editorArea .panel-body").height() - 40;
 	
 	canvas.setWidth(editorWidth);
 	canvas.setHeight(editorHeight);
@@ -30,7 +33,7 @@ $(function(){
 	canvas.backgroundColor = '#222';
 
 	customFabric.setCanvas(canvas);	
-	customFabric.resizeCanvas('#editorWrapper');
+	customFabric.resizeCanvas('.editorArea .panel-body');
 	customFabric.setTextPannel('#textPannel');
 	customFabric.setFigurePannel('#figurePannel');
 	
@@ -73,9 +76,9 @@ $(function(){
 	
 // end initCanvas 
 
-	$("div.load_images .btn_loadimage").click(function(){
+	$(".btn_loadImage").click(function(){
 
-		var imageURL = $(".load_images .imageURL").val()
+		var imageURL = $(" .imageURL").val()
 		customFabric
 		.withURL(imageURL)
 		.loadImage(function(data){
@@ -113,7 +116,7 @@ $(function(){
 	});
 
 	
-	$(".btn_rotateSymmentry").click(function(){
+	$(".btn_rotateSymmetry").click(function(){
 		customFabric.rotateSymmetry();		
 
 	});
@@ -257,98 +260,138 @@ $(function(){
 </script>
 
 </head>
+
+
 <body>
 
-<div class="editorContainer">
-	<div class="iconWrap">
+<div id="wrapper">
 
-		<span class="photoButton btn_rotate">rotate(90)</span>
-		<span class="photoButton btn_rotateSymmentry">rotate_symmetry</span>
-		
-		<span class="photoButton btn_upScale">scale_up(0.2)</span>
-		<span class="photoButton btn_downScale">scale_down(-0.2)</span>
+          <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="index.html">ChoiS Portfolio</a>
+            </div>
 
-		<span class="photoButton btn_addCircle">canvas_circle</span>
-		<span class="photoButton btn_addRect">canvas_rect</span>	
-		<span class="photoButton btn_addTriangle">canvas_triangle</span>
-		<span class="photoButton btn_addText">canvas_text</span>
-	 
+            <div class="collapse navbar-collapse navbar-ex1-collapse">
+                <ul id="active" class="nav navbar-nav side-nav">
+                    <li class="selected"><a href="#"><i class="fa fa-bullseye"></i>Image Editor</a></li>
+                    <li><a href="#"><i class="fa fa-tasks"></i> Sample</a></li>
+                    <li><a href="#"><i class="fa fa-globe"></i> Sample</a></li>
+                    <li><a href="#"><i class="fa fa-list-ol"></i> Sample</a></li>
+                    <li><a href="#"><i class="fa fa-font"></i> Sample</a></li>
+                    <li><a href="#"><i class="fa fa-font"></i> Sample</a></li>
+                    <li><a href="#"><i class="fa fa-list-ol"></i> Sample</a></li>
+                    <li><a href="#"><i class="fa fa-font"></i> Sample</a></li>
+                    <li><a href="#"><i class="fa fa-list-ul"></i> Sample</a></li>
+                    <li><a href="#"><i class="fa fa-table"></i> Sample</a></li>
+                </ul>
 
-		<span class="photoButton btn_img_croparea">crop_Area</span>
+                <ul class="nav navbar-nav navbar-right navbar-user">
+                    <li class="dropdown messages-dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-envelope"></i> Messages <span class="badge">2</span> <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li class="dropdown-header">2 New Messages</li>
+                            <li class="message-preview">
+                                <a href="#">
+                                    <span class="avatar"><i class="fa fa-bell"></i></span>
+                                    <span class="message">Security alert</span>
+                                </a>
+                            </li>
+                            <li class="divider"></li>
+                            <li class="message-preview">
+                                <a href="#">
+                                    <span class="avatar"><i class="fa fa-bell"></i></span>
+                                    <span class="message">Security alert</span>
+                                </a>
+                            </li>
+                            <li class="divider"></li>
+                            <li><a href="#">Go to Inbox <span class="badge">2</span></a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown user-dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> Steve Miller<b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#"><i class="fa fa-user"></i> Profile</a></li>
+                            <li><a href="#"><i class="fa fa-gear"></i> Settings</a></li>
+                            <li class="divider"></li>
+                            <li><a href="#"><i class="fa fa-power-off"></i> Log Out</a></li>
+
+                        </ul>
+                    </li>
+                    <li class="divider-vertical"></li>
+                    <li>
+                        <form class="navbar-search">
+                            <input type="text" placeholder="Search" class="form-control">
+                        </form>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <div id="page-wrapper">
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1>Image editor <small>filters, scale, etc.... </small>
+	                    <div class="input-group" style="width: 340px; text-align: center;">
+	                        <input class="form-control input-lg imageURL" title="load image" placeholder="Enter your image path" type="text" value="./images/Tulips.jpg">
+	                        <span class="input-group-btn">
+	                            <button class="btn btn-lg btn-primary btn_loadImage" type="button">OK</button></span>
+	                   </div>
+                   </h1>
+                </div>
+            </div>
+
+            <div class="row">
+
+                <div class="col-md-6">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <h3 class="panel-title"><i class="fa fa-bar-chart-o"></i> buttons </h3>
+                        </div>
+                        <div class="panel-body">
+                            <p class="editorButtons">
+                            	<button type="button" class="btn btn-primary btn-xs btn_rotate">rotate(90)</button>
+                            	<button type="button" class="btn btn-primary btn-xs btn_rotateSymmetry">rotate_symmetry</button>
+                            	<button type="button" class="btn btn-primary btn-xs btn_upScale">scale_up(0.2)</button>
+								<button type="button" class="btn btn-primary btn-xs btn_downScale">scale_down(-0.2)</button>
+								<button type="button" class="btn btn-primary btn-xs btn_addCircle">canvas_circle</button>
+								<button type="button" class="btn btn-primary btn-xs btn_addRect">canvas_rect</button>	
+								<button type="button" class="btn btn-primary btn-xs btn_addTriangle">canvas_triangle</button>
+								<button type="button" class="btn btn-primary btn-xs btn_addText">canvas_text</button>
+								<button type="button" class="btn btn-primary btn-xs btn_img_croparea">crop_Area</button>
+								<button type="button" class="btn btn-primary btn-xs btn_change_grayscale">change_grayscale</button>
+								<button type="button" class="btn btn-primary btn-xs btn_up_brightness">up_brightness</button>
+								<button type="button" class="btn btn-primary btn-xs btn_down_brightness">down_brightness</button>
 
 
-		<span class="photoButton btn_change_grayscale">change_grayscale</span>
-		<span class="photoButton btn_up_brightness">up_brightness</span>
-		<span class="photoButton btn_down_brightness">down_brightness</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row editorArea">
+                <div class="col-md-12">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <h3 class="panel-title"><i class="fa fa-rss"></i> Edit Image</h3>
+                        </div>
+                        <div class="panel-body">
+                            <canvas id="c">
+                            	
+                            </canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-	</div>
-
-	<div id="textPannel" class="pannel">
-		<ul>
-			<li>
-				<p>본문내용</p>
-				<textarea></textarea>
-			</li>
-			<li>
-				<p>글꼴</p>
-				<select>
-             		<option>Arial</option>
-            	</select>
-			</li>
-			<li>
-				<p>정렬</p>
-				<select class="align">
-             		<option value="left">왼쪽</option>
-             		<option value="center">가운데</option>
-             		<option value="right">오른쪽</option>
-            	</select>
-			</li>
-			<li>
-				<p>색</p>
-			</li>
-			<li>
-				<p>속성</p>
-			</li>
-			<li>
-				<p>투명도</p>
-				<select class="opacity">
-		            <option value="0">0</option>
-		            <option value="0.1">10%</option>
-		            <option value="0.2">20%</option>
-		            <option value="0.3">30%</option>
-		            <option value="0.4">40%</option>
-		            <option value="0.5">50%</option>
-		            <option value="0.6">60%</option>
-		            <option value="0.7">70%</option>
-		            <option value="0.8">80%</option>
-		            <option value="0.9">90%</option>
-		            <option value="1" selected>100%</option>
-	            </select>
-			</li>
-			<li>
-				<p>색</p>
-			</li>
-		</ul>
-	</div>    
-
-
-	<div class="figurePannel" id="figurePannel">
-		
-	</div>
-
-
-	<div class="load_images">
-		<input value="./images/Tulips.jpg" class="imageURL" />
-		<button class="btn_loadimage">불러오기</button>
-
-	</div>
-
-
-	<div id="editorWrapper" class="editor_wrapper">
-		<canvas id="c" style="position:absolute;margin: 0 0 0 0; padding:0; height:auto"></canvas> 
-	</div>
-
-</div>
+    </div>
 
 </body>
 
