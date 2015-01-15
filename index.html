@@ -25,7 +25,7 @@ $(function(){
 	var canvas = new fabric.CanvasEx('c');
 	var customFabric = new CustomFabric();
 	var editorWidth = $(".editorArea .panel-body").width();
-	var editorHeight = $(".editorArea .panel-body").height() - 40;
+	var editorHeight = $(".editorArea .panel-body").height();
 	
 	canvas.setWidth(editorWidth);
 	canvas.setHeight(editorHeight);
@@ -34,16 +34,22 @@ $(function(){
 
 	customFabric.setCanvas(canvas);	
 	customFabric.resizeCanvas('.editorArea .panel-body');
-	customFabric.setTextPannel('#textPannel');
-	customFabric.setFigurePannel('#figurePannel');
+	customFabric.setTextPanel('.textPanel');
+	customFabric.setShapePanel('.shapePanel');
 	
-	var $textPannel = $(customFabric.getTextPannel());
-	var $figurePannel = $(customFabric.getFigurePannel());
+	var $textPanel = $(customFabric.getTextPanel());
+	var $shapePanel = $(customFabric.getShapePanel());
 	var activeObject = null;
 
+	$(".btn_loadImage").click();
+	$('body').on('click', '.btn-group a', function (e) {
+	    $(this).addClass('active');
+	    $(this).siblings().removeClass('active');	    
+	});
+
 	customFabric.on("mouse:down",function(){
-		$textPannel.hide();
-		$figurePannel.hide();
+		$textPanel.hide();
+		$shapePanel.hide();
 	});
 
 	customFabric.on("mouse:up",function(evt){
@@ -200,12 +206,9 @@ $(function(){
 		customFabric.changeBrightness(-10);
 	});
 
-
-	$(".btn_loadimage").click();
-
-	$textPannel.find("textarea").keyup(syncContents);
-	$textPannel.find(".align").change(setTextAlign);
-	$textPannel.find(".opacity").change(setOpacity);
+	$textPanel.find("textarea").keyup(syncContents);
+	$textPanel.find(".align-group .btn").click(setTextAlign);
+	$textPanel.find(".opacity").change(setOpacity);
 
 	function syncContents(e){
 		var text = e.target.value;
@@ -214,8 +217,9 @@ $(function(){
 	}
 	
 	function setTextAlign(e){
-		var align = e.target.value;
+		var align = $(e.target).data("align");
 		activeObject.setTextAlign(align);
+		customFabric.renderAll();
 	}
 
 	function setOpacity(e){
@@ -227,8 +231,11 @@ $(function(){
 	function initTextProperty(evt){
 
 		
-		var pannelLeft = evt.e.layerX + 150;
-		var pannelTop = evt.e.layerY;
+		//var panelLeft = evt.e.layerX + 150;
+		//var panelTop = evt.e.layerY;
+		
+		var panelLeft = evt.e.x+100;
+		var panelTop = evt.e.y;
 
 		var fontWeight = activeObject.getFontWeight();
 		var fontStyle = activeObject.getFontStyle();
@@ -241,14 +248,16 @@ $(function(){
 		var fontSize = activeObject.getFontSize();
 		var textAlign = activeObject.getTextAlign();
 
-		$textPannel.css({
-			top: pannelTop,
-			left: pannelLeft
+		$textPanel.css({
+			top: panelTop,
+			left: panelLeft
 		});
 
-		$textPannel.find("textarea").val(contents);
-		$textPannel.find('.align').val(textAlign);
-		$textPannel.show();
+		console.log(textAlign);
+		console.log($textPanel.find('.align-group .btn[data-align="' + textAlign +'"]'));
+		$textPanel.find("textarea").val(contents);
+		$textPanel.find(".align-group .btn[data-align='" + textAlign + "']").click();
+		$textPanel.show();
 
 	}
 
@@ -352,10 +361,10 @@ $(function(){
                 <div class="col-md-6">
                     <div class="panel panel-primary">
                         <div class="panel-heading">
-                            <h3 class="panel-title"><i class="fa fa-bar-chart-o"></i> buttons </h3>
+                            <h3 class="panel-title"><i class="fa fa-bar-chart-o"></i>Buttons </h3>
                         </div>
                         <div class="panel-body">
-                            <p class="editorButtons">
+                            <p class="editorButtons	">
                             	<button type="button" class="btn btn-primary btn-xs btn_rotate">rotate(90)</button>
                             	<button type="button" class="btn btn-primary btn-xs btn_rotateSymmetry">rotate_symmetry</button>
                             	<button type="button" class="btn btn-primary btn-xs btn_upScale">scale_up(0.2)</button>
@@ -368,23 +377,54 @@ $(function(){
 								<button type="button" class="btn btn-primary btn-xs btn_change_grayscale">change_grayscale</button>
 								<button type="button" class="btn btn-primary btn-xs btn_up_brightness">up_brightness</button>
 								<button type="button" class="btn btn-primary btn-xs btn_down_brightness">down_brightness</button>
-
-
                             </p>
                         </div>
                     </div>
-                </div>
+                </div>                
             </div>
             <div class="row editorArea">
                 <div class="col-md-12">
                     <div class="panel panel-primary">
-                        <div class="panel-heading">
-                            <h3 class="panel-title"><i class="fa fa-rss"></i> Edit Image</h3>
-                        </div>
                         <div class="panel-body">
                             <canvas id="c">
                             	
-                            </canvas>
+                            </canvas>                            
+                        </div>
+                    </div>                    
+                </div>
+                <div class="col-md-3 textPanel optionPanel">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <h3 class="panel-title"><i class="fa fa-bar-chart-o"></i>Option Panel</h3>
+                        </div>
+                        <div class="panel-body">
+                            <form role="form">
+                            	<div class="form-group">
+		                            <label>Text area</label>
+		                            <textarea class="form-control"></textarea>
+		                            <label>Text Align</label>
+		                            <div class="btn-group btn-group-justified align-group">
+						                <a href="#" data-align="left" class="btn btn-default">Left</a>
+						                <a href="#" data-align="center" class="btn btn-default">Center</a>
+						                <a href="#" data-align="right" class="btn btn-default">Right</a>
+						            </div>
+		                        </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 shapePanel optionPanel">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <h3 class="panel-title"><i class="fa fa-bar-chart-o"></i>Option Panel</h3>
+                        </div>
+                        <div class="panel-body">
+                            <form role="form">
+                            	<div class="form-group">
+		                            <label>Text area</label>
+		                            <textarea class="form-control"></textarea>
+		                        </div>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -393,6 +433,100 @@ $(function(){
 
     </div>
 
+
+
+<!-- 
+<div class="editorContainer">
+	<div class="iconWrap">
+
+		<span class="photoButton btn_rotate">rotate(90)</span>
+		<span class="photoButton btn_rotateSymmentry">rotate_symmetry</span>
+		
+		<span class="photoButton btn_upScale">scale_up(0.2)</span>
+		<span class="photoButton btn_downScale">scale_down(-0.2)</span>
+
+		<span class="photoButton btn_addCircle">canvas_circle</span>
+		<span class="photoButton btn_addRect">canvas_rect</span>	
+		<span class="photoButton btn_addTriangle">canvas_triangle</span>
+		<span class="photoButton btn_addText">canvas_text</span>
+	 
+
+		<span class="photoButton btn_img_croparea">crop_Area</span>
+
+
+		<span class="photoButton btn_change_grayscale">change_grayscale</span>
+		<span class="photoButton btn_up_brightness">up_brightness</span>
+		<span class="photoButton btn_down_brightness">down_brightness</span>
+
+	</div>
+
+	<div id="textpanel" class="panel">
+		<ul>
+			<li>
+				<p>본문내용</p>
+				<textarea></textarea>
+			</li>
+			<li>
+				<p>글꼴</p>
+				<select>
+             		<option>Arial</option>
+            	</select>
+			</li>
+			<li>
+				<p>정렬</p>
+				<select class="align">
+             		<option value="left">왼쪽</option>
+             		<option value="center">가운데</option>
+             		<option value="right">오른쪽</option>
+            	</select>
+			</li>
+			<li>
+				<p>색</p>
+			</li>
+			<li>
+				<p>속성</p>
+			</li>
+			<li>
+				<p>투명도</p>
+				<select class="opacity">
+		            <option value="0">0</option>
+		            <option value="0.1">10%</option>
+		            <option value="0.2">20%</option>
+		            <option value="0.3">30%</option>
+		            <option value="0.4">40%</option>
+		            <option value="0.5">50%</option>
+		            <option value="0.6">60%</option>
+		            <option value="0.7">70%</option>
+		            <option value="0.8">80%</option>
+		            <option value="0.9">90%</option>
+		            <option value="1" selected>100%</option>
+	            </select>
+			</li>
+			<li>
+				<p>색</p>
+			</li>
+		</ul>
+	</div>    
+
+
+	<div class="figurepanel" id="figurepanel">
+		
+	</div>
+
+
+	<div class="load_images">
+		<input value="./images/Tulips.jpg" class="imageURL" />
+		<button class="btn_loadimage">불러오기</button>
+
+	</div>
+
+
+	<div id="editorWrapper" class="editor_wrapper">
+		<canvas id="c" style="position:absolute;margin: 0 0 0 0; padding:0; height:auto"></canvas> 
+	</div>
+
+</div>
+-->
 </body>
 
 </html>

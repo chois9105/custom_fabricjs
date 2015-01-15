@@ -10,14 +10,19 @@ html, body {
 	height: 70%;
 }
 
-.editorArea>div, .editorArea>div>.panel , .editorArea>div>.panel>.panel-body {
+.editorArea>div:not(.optionPanel), .editorArea>div:not(.optionPanel)>.panel , .editorArea>div:not(.optionPanel)>.panel>.panel-body {
 	height:100%;
 }
 
-.editorArea>div>.panel>.panel-body {
+.editorArea>div:not(.optionPanel)>.panel>.panel-body {
 	padding:0;
 }
 
 .editorButtons button {
 	margin-bottom: 1px;
+}
+
+div.optionPanel {
+	position: absolute;
+	display: none;
 }

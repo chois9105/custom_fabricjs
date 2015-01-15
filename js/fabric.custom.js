@@ -3,8 +3,8 @@ var CustomFabric = (function(){
 		var _info = new Object();
 		var _canvas;
 		var _cropstate = {};
-		var _textPannel = '';
-		var _figurePannel = '';
+		var _textPanel = '';
+		var _shapePanel = '';
 		_cropstate.area = false;
 
 		return {
@@ -18,17 +18,17 @@ var CustomFabric = (function(){
 			getCanvas : function(){
 				return _canvas;
 			},
-			setTextPannel : function(pannel){
-				_textPannel = pannel
+			setTextPanel : function(panel){
+				_textPanel = panel
 			},
-			getTextPannel : function(){
-				return _textPannel;
+			getTextPanel : function(){
+				return _textPanel;
 			},
-			setFigurePannel : function(pannel){
-				_figurePannel = pannel
+			setShapePanel : function(panel){
+				_shapePanel = panel
 			},
-			getFigurePannel : function(){
-				return _figurePannel;
+			getShapePanel : function(){
+				return _shapePanel;
 			},
 			resizeCanvas : function(selector){
 				
@@ -37,7 +37,7 @@ var CustomFabric = (function(){
 					var wrapper = $(selector);
 					
 					var width = wrapper.width();
-					var height = wrapper.height() - 40;
+					var height = wrapper.height();
 
 				
 					_canvas.setWidth(width);
